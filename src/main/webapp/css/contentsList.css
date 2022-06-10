@@ -1,0 +1,60 @@
+.pagination a {
+    color: black;
+}
+
+#title {
+	margin: 20px !important;
+}
+
+#list {
+    color: black;
+    transform: translateY(-500px);
+    padding-left: 50px;
+}
+
+#list div {
+	margin-top: 10px;
+}
+
+#list .title {
+	padding-left: 40px;
+}
+
+#list #title {
+	padding-left: 55px !important;
+}
+
+#list_p {
+	font-size: 15pt;
+	font-weight: bold;
+}
+
+.list_p {
+	margin-top: 50px;
+}
+
+#list_p span {
+	padding-right: 60px;
+	font-size: 12pt;
+	font-weight: 500;
+}
+
+.pagination {
+    margin: 0px 411px;
+    text-align: center;
+    transform: translateY(-370px);
+}
+
+#inputContent {
+    color: white;
+    background-color: rgb(171, 123, 204);
+    border: solid 1px;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    transform: translate(950px, -410px);
+}
+
+.pagination span {
+	padding: 10px;
+}

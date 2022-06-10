@@ -1,0 +1,9 @@
+#nav {
+	transform: translate(-180px, 30px);
+	width: 730px;
+}
+
+#nav a {
+	font-weight: bold;
+	padding: 10px 140px;
+}

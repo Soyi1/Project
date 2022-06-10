@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이 페이지</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/myInfo.css">
+</head>
+<body>
+    <div id="login">
+        <div>
+            <button type="button" id="signIn">signIn</button>
+        </div>
+        <div>
+            <button type="button" id="signUp">signUp</button>
+        </div>
+    </div>
+
+    <div id="main">
+        <a href="/main.html" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-decoration-none">
+            <i class="bi bi-arrow-through-heart-fill">&nbsp;</i>
+            Population.com
+        </a>
+    </div>
+
+    <div class="px-3 py-2 text-white " id="header">
+        <div id="main_nav" class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/main.html" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                <i class="bi bi-arrow-through-heart-fill">&nbsp;파퓰레이션닷컴</i>
+            </a>
+        </div>
+
+        <div class="menu">
+            <li id="menu1"><a href="/main.html">페이지 모토</a></li>
+            <li><a href="/place.html">대한민국 17개의 행정 구역 한 눈에 보기</a></li>
+            <li><a href="/checkPopulation.html">전국의 고령 인구 비율 확인</a></li>
+            <li><a href="/showResults.html">현재까지 입력한 행정구역 내역 보기</a></li>
+            <li><a href="/contentsList.html">게시판</a></li>
+        </div>
+    </div>
+
+    <div id="ad1">
+        <div>
+            <a href="http://www.cleantopia.com/kr/main.do" target="_blank" id="side1"><img src="https://mblogthumb-phinf.pstatic.net/MjAxOTExMjJfMTc3/MDAxNTc0NDEwMTUxMzU0.Y7XmGe0JKzO6YHa4RGUd4x8MSsd6ACtP37_o9NEs_zMg.9eRVHBtIAkSRMEwPJKGkYJksvuZB-6syg43OVGrKpDYg.JPEG.darkblue255/1218_크린토피아_이불편_포스터_520x745.jpg?type=w800" alt=""></a>
+        </div>
+        <div id="link">
+            ⓘ&nbsp;파워링크
+        </div>
+    </div>
+
+    <div id="ad2">
+        <p id="go">- 바로 가기 URL</p>
+
+        <ul>
+            <li><a href="https://kostat.go.kr/portal/korea/kor_nw/1/2/2/index.board" target="_blank">통계청 인구총조사 사이트로 이동</a></li>
+            <li><a href="https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1YL20631&conn_path=I2" target="_blank">한국 통계청 KOSIS 사이트로 이동</a></li>
+            <li><a href="https://sgis.kostat.go.kr/statexp/view/index" target="_blank">통계청 통계지리정보서비스 사이트로 이동</a></li>
+        </ul>
+
+        <p id="go">- Hot! Issue</p>
+        
+        <ul>
+            <li><a href="https://www.insight.co.kr/news/396127" target="_blank">'아이돌 최초 카투사' 데이식스 영케이, 주한미군 최고 전사 대회서 1등</a></li>
+            <li><a href="https://www.gukjenews.com/news/articleView.html?idxno=2444490" target="_blank">MJ 입대 발표, 아스트로 잠시 떠난다</a></li>
+            <li><a href="https://news.nate.com/view/20220522n14595" target="_blank">전소민, 차은우 등장에 줄행랑 "왜 이렇게 미남이냐"(런닝맨)</a></li>
+        </ul>
+
+        <div id="ad2_div">
+            <a href="https://kostat.go.kr/portal/korea/index.action" target="_blank">참고 문헌: 한국 통계청</a>
+        </div>
+
+        <div id="personalInfo">
+            <a href="https://www.instagram.com/__kxois/" target="_blank"><img src="/img/insta.jpg" alt="" id="insta"></a>
+            <a href="https://blog.naver.com/ksoi1004" target="_blank"><img src="/img/blog.png" alt="" id="blog"></a>
+        </div>
+    </div>
+
+    <div id="div">
+        <ul class="nav nav-tabs" id="nav">
+		  <li class="nav-item" id="contentsLi">
+		    <a class="nav-link active" href="/myInfo.html" id="myCotents">내가 쓴 글</a>
+		  </li>
+		  <li class="nav-item" id="commentsLi">
+		    <a class="nav-link" href="/myComments.html" id="myComments" style="color: rgb(127, 117, 177)">내가 쓴 댓글</a>
+		  </li>
+		</ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="/JS/header.js"></script>
+    
+    <script>
+		$("#signIn").on("click", function() {
+			location.href="/signIn.html"
+		});
+		
+		$("#signUp").on("click", function() {
+			location.href="/signUp.html"
+		});
+		
+		$.ajax ({
+			url: "/login/status",
+			type: "GET",
+			success: function(User) {
+				setHeader(User);
+			}
+		});
+    </script>
+</body>
+</html>

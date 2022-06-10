@@ -1,0 +1,9 @@
+#span1, #span2 {
+    font-weight: bold;
+}
+
+#motto {
+    font-size: 11pt;
+    padding: 0px 20px;
+    transform: translateY(-500px);
+}

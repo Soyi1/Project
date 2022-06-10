@@ -1,0 +1,14 @@
+#div img {
+    width: 1085px;
+    height: 1000px;
+    padding: 0px 20px;
+    transform: translateY(-500px);
+}
+
+#div {
+    height: 1100px;
+}
+
+#ad2 {
+    transform: translate(17px, 10px);
+}

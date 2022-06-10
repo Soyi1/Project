@@ -1,0 +1,27 @@
+.inputPlace, #check {
+    transform: translateY(-500px);
+}
+
+.inputPlace {
+    margin: 0px 20px;
+    padding: 10px;
+    width: 300px;
+}
+
+#check {
+    color: white;
+    background-color: rgb(125, 114, 165);
+    border: none;
+    height: 40px;
+    width: 50px
+}
+
+#p2 {
+	font-weight: bold;
+	font-size: 15pt;
+	transform: translate(20px, -450px);
+}
+
+#selectOL li {
+    list-style: none;
+}
