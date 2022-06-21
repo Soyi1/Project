@@ -113,19 +113,19 @@
 		});
 		
 		$.ajax ({
-			url: "/list",
+			url: "/list/status",
 			type: "GET",
 			success: function(PlaceList) {
 				if (PlaceList != undefined) {
 					for(let i = 0; i <= 29; i++) {
 						let nthPlace = PlaceList[i];
 
-						$("#list").append("<li>" + nthPlace.nthPlaceName + "</li>");
+						$("#list").append("<li>" + nthPlace.nthPlaceName + ", " + nthPlace.year + "년" + "</li>");
 					}
-				} else {
-					$("#list").append("<li style=\"list-style: none;\">검색 내역이 없습니다.</li>");
 				}
-			}
+			}, error: function () {
+                $("#list").append("<li style=\"list-style: none;\">검색 내역이 없습니다.</li>");
+            }
 		});
     </script>
 </body>

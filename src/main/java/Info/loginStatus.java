@@ -11,14 +11,16 @@ public class loginStatus extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String User = (String) session.getAttribute("User");
 
-        if (User == null) {
+        String loginUser = (String) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
-            PrintWriter output = response.getWriter();
+            response.setContentType("text/plain;charset=UTF-8");
 
-            output.print(User);
+            PrintWriter output = response.getWriter();
+            output.print(loginUser);
             output.close();
         }
     }

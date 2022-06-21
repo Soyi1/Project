@@ -104,15 +104,15 @@
     
     <script>
     	$("#signIn").on("click", function() {
-    		location.href="/signIn.html"
+    		location.href="/signIn.html";
     	});
     	
     	$("#signUp").on("click", function() {
-    		location.href="/signUp.html"
+    		location.href="/signUp.html";
     	});
     	
     	$("#inputContent").on("click", function() {
-    		location.href="/inputContent.html"
+    		location.href="/inputContent.html";
     	});
     	
 		$.ajax ({
@@ -122,6 +122,8 @@
 				setHeader(User);
 			}
 		});
+
+        let pageNum = 1;
 		
 		$.ajax ({
 			url: "/contents/amount",
@@ -129,7 +131,7 @@
 			success: function(amount) {
 				let lastPageNum = amount / 10;
 				
-				for (let pageNum = 1; pageNum <= lastPageNum; pageNum++) {
+				for (pageNum = 1; pageNum <= lastPageNum; pageNum++) {
 					$(".pagination").append("<span>" + pageNum + "</span>");
 					
 					$(".pagination span").on("click", function() {
@@ -142,8 +144,6 @@
 				}
 			}
 		});
-		
-		let pageNum = 1;
 		
 		if (location.search > 0) {
 			let parameter = location.search.substr(1);

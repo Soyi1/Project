@@ -1,6 +1,7 @@
-#div img {
+#map {
     width: 1085px;
     height: 1000px;
+    border: 0px;
     padding: 0px 20px;
     transform: translateY(-500px);
 }

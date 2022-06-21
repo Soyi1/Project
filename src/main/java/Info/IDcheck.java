@@ -1,9 +1,15 @@
 package Info;
 
+import Mysql.DatabaseManager;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @WebServlet(name = "IDcheck", value = "/id/check")
 public class IDcheck extends HttpServlet {
@@ -37,13 +43,28 @@ public class IDcheck extends HttpServlet {
             isSuitable = true;
         }
 
-        for(CustomerInfo nthInfo : signUp.InfoList) {
-            String nthID = nthInfo.getID();
+        Connection conn = DatabaseManager.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
-            if (ID.equals(nthID)) {
-                isExistID = true;
+        if (conn != null) {
+            try {
+                String sql = "SELECT * FROM customer_info WHERE userID = ?";
 
-                break;
+                pstmt = DatabaseManager.getPstmt(conn, sql);
+                pstmt.setString(1, ID);
+
+                rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    isExistID = true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                DatabaseManager.closeResultSet(rs);
+                DatabaseManager.closePstmt(pstmt);
+                DatabaseManager.closeConn(conn);
             }
         }
 

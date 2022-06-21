@@ -4,8 +4,8 @@ function selcetList1(getValue){
     let setPlace = null;
     let getPlace = null;
 
-    let list = ["서울특별시", "부산광역시", "광주광역시", "대구광역시", "대전광역시", "인천광역시", "울산광역시", "충청남도", "충청북도", "전라남도", "전라북도", "경상남도", "경상북도", "강원도", "경기도", "세종특별자시치", "제주특별자치도", "전국"];
-    let getList = ["_서울특별시", "_부산광역시", "_광주광역시", "_대구광역시", "_대전광역시", "_인천광역시", "_울산광역시", "_충청남도", "_충청북도", "_전라남도", "_전라북도", "_경상남도", "_경상북도", "_강원도", "_경기도", "_세종특별자시치", "_제주특별자치도", "_전국"];
+    let list = ["서울특별시", "부산광역시", "광주광역시", "대구광역시", "대전광역시", "인천광역시", "울산광역시", "충청남도", "충청북도", "전라남도", "전라북도", "경상남도", "경상북도", "강원도", "경기도", "세종특별자치시", "제주특별자치도", "전국"];
+    let getList = ["_서울특별시", "_부산광역시", "_광주광역시", "_대구광역시", "_대전광역시", "_인천광역시", "_울산광역시", "_충청남도", "_충청북도", "_전라남도", "_전라북도", "_경상남도", "_경상북도", "_강원도", "_경기도", "_세종특별자치시", "_제주특별자치도", "_전국"];
 
     if (getValue == "") {
         setPlace = new Array("행정구역을 선택하세요.");
@@ -30,5 +30,17 @@ function selcetList1(getValue){
 
     for(let k = 0; k < setPlace.length; k++) {
         getForm.inputPlace2.options[k] = new Option(setPlace[k], getPlace[k]);
+    }
+
+    let input1 = document.getElementsByName("inputPlace2");
+    let input2 = document.getElementsByName("inputPlace3");
+
+    document.getElementsByName("inputPlace2")[0].value = 0;
+    document.getElementsByName("inputPlace3")[0].value = 0;
+
+    if (input1 != 0) {
+        $("#input2 option:eq(0)").prop("selected", true);
+    } else if (input2 != 0) {
+        $("#input3 option:eq(0)").prop("selected", true);
     }
 }

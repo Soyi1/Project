@@ -1,8 +1,8 @@
-.inputPlace, #check {
+.inputPlace {
     transform: translateY(-500px);
 }
 
-.inputPlace {
+.inputPlace, #check {
     margin: 0px 20px;
     padding: 10px;
     width: 300px;
@@ -12,14 +12,18 @@
     color: white;
     background-color: rgb(125, 114, 165);
     border: none;
-    height: 40px;
-    width: 50px
+    transform: translate(38px, -500px);
 }
 
 #p2 {
 	font-weight: bold;
 	font-size: 15pt;
-	transform: translate(20px, -450px);
+	transform: translate(500px, -700px);
+}
+
+#p3 {
+    font-size: 12pt;
+    transform: translate(20px, -325px);
 }
 
 #selectOL li {

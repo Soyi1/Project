@@ -5,25 +5,22 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "list", value = "/list")
 public class list extends HttpServlet {
+    public static List<populationList> getPopulationList = new ArrayList<>();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+        try {
+            String inputPlace = request.getParameter("inputPlace");
+            int year = Integer.parseInt(request.getParameter("year"));
 
-        PrintWriter output = response.getWriter();
-
-        String json = "[";
-
-        for (populationList yourPlace : checkPopulationStatus.yourPlaceList) {
-            String data = "{\"nthPlaceName\": \"" + yourPlace.getInputPlace() + "\"}";
-            json = json + data + ",";
+            populationList getList = new populationList(inputPlace, year);
+            getPopulationList.add(getList);
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-
-        json = json.substring(0, json.length() - 1);
-        json = json + "]";
-        output.print(json);
-        output.close();
     }
 }

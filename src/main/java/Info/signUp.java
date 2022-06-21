@@ -1,17 +1,18 @@
 package Info;
 
+import Mysql.DatabaseManager;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 @WebServlet(name = "signUp", value = "/sign/up")
 public class signUp extends HttpServlet {
-    public static List<CustomerInfo> InfoList = new ArrayList<>();
-
-    @Override
+   @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String ID = request.getParameter("ID");
         String PW = request.getParameter("PW");
@@ -45,9 +46,27 @@ public class signUp extends HttpServlet {
             isSuitable = true;
         }
 
-        if (PW.equals(PW_check) && (isSuitable == true)) {
-            CustomerInfo newInfo = new CustomerInfo(ID, PW);
-            InfoList.add(newInfo);
+        if (PW.equals(PW_check) && isSuitable) {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement pstmt = null;
+
+            if (conn != null) {
+                try {
+                    String sql = "INSERT INTO customer_info VALUES(?, ?)";
+
+                    pstmt = DatabaseManager.getPstmt(conn, sql);
+                    pstmt.setString(1, ID);
+                    pstmt.setString(2, PW);
+
+                    pstmt.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } finally {
+                    DatabaseManager.closePstmt(pstmt);
+                    DatabaseManager.closeConn(conn);
+                }
+
+            }
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }

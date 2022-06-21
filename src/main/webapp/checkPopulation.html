@@ -24,7 +24,7 @@
     </div>
 
     <div id="main">
-        <a href="http://localhost/java_project/main.html" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-decoration-none">
+        <a href="/main.html" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-decoration-none">
             <i class="bi bi-arrow-through-heart-fill">&nbsp;</i>
             Population.com
         </a>
@@ -85,7 +85,7 @@
 	<form name="form">
 		<div id="div">
 	        <p id="p1">- 전국의 고령 인구 비율 확인</p>
-	
+
 	        <hr>
 
             <ol id="selectOL">
@@ -100,7 +100,7 @@
                 </li>
 
                 <li>
-                    <select class="inputPlace" name="inputPlace2" id="input2"  onchange="selcetList2(this.value)">
+                    <select class="inputPlace" name="inputPlace2" id="input2" onchange="selcetList2(this.value)">
                         <option value="" selected disabled>행정 구역을 선택해주세요.</option>
                     </select>
                 </li>
@@ -113,8 +113,9 @@
             </ol>
 
             <button type="submit" id="check">검색</button>
-	
-	        <p id="p2"></p>
+
+            <p id="p3">UN의 기준에 따르면 65세 이상 인구가 7% 이상일 때 '고령화사회', 14%를 넘으면 "'고령사회', 그리고 20%를 넘게 되면 '초고령사회'로 분류 됩니다.</p>
+            <p id="p2"></p>
     	</div>
 	</form>
 
@@ -138,48 +139,54 @@
 			}
 		});
     	
-    	$("#check").on("click", function(event) {
-    		event.preventDefault();
-
-            let inputPlace = $("#input3").val();
+    	$("#check").on("click", function() {
             let year = $("#input1").val();
-   			var checked = $("#p2").children().is("p");
+            let inputPlace = $("#input3").val();
 
    			$.ajax({
    				url: "/check/population",
    				type: "GET",
                 data: "year="+year+"&inputPlace="+inputPlace,
    				success: function(placeInfo) {
-   					if (checked) {
-   						$("#p2").children().remove();
+                    let checked = $("#p2").children().is("p");
 
-   	   					if (placeInfo != null) {
-   	   						$("#p2").append("<h2>== " + inputPlace + " ==</h2>");
-   	   						$("#p2").append("<p> 전체 인구 수: " + placeInfo.allPopulation + "</p>");
-   							$("#p2").append("<p> 65세 이상 인구 수: " + placeInfo.over65 + "</p>");
-   							$("#p2").append("<p> 65세 이상 인구 비율: " + placeInfo.percent65 + "</p>");
-   	   					}
-   					} else {
-   	   					if (placeInfo != null) {
-   	   						$("#p2").append("<h2>== " + placeInfo.placeName + " ==</h2>");
-   	   						$("#p2").append("<p> 전체 인구 수: " + placeInfo.allPopulation + "</p>");
-   							$("#p2").append("<p> 65세 이상 인구 수: " + placeInfo.over65 + "</p>");
-   							$("#p2").append("<p> 65세 이상 인구 비율: " + placeInfo.percent65 + "</p>");
-   	   					}
-   					}
+                    if (placeInfo !=undefined) {
+                        if (checked) {
+                            $("#p2").children().remove();
+
+                            $("#p2").append("<h2>== " + inputPlace + ", " + year + "년 ==</h2>");
+                            $("#p2").append("<p> 전체 인구 수: " + placeInfo.allPopulation + "</p>");
+                            $("#p2").append("<p> 65세 이상 인구 수: " + placeInfo.over65 + "</p>");
+                            $("#p2").append("<p> 65세 이상 인구 비율: " + placeInfo.percent65 + "</p>");
+                            $("#p2").append("<p> 현재 " + inputPlace + "는 " + placeInfo.proportionOver65 + "입니다.</p>");
+                        } else {
+                            $("#p2").append("<h2>== " + inputPlace + ", " + year + "년 ==</h2>");
+                            $("#p2").append("<p> 전체 인구 수: " + placeInfo.allPopulation + "</p>");
+                            $("#p2").append("<p> 65세 이상 인구 수: " + placeInfo.over65 + "</p>");
+                            $("#p2").append("<p> 65세 이상 인구 비율: " + placeInfo.percent65 + "</p>");
+                            $("#p2").append("<p> 현재 " + inputPlace + "는 " + placeInfo.proportionOver65 + "입니다.</p>");
+                        }
+                    }
    				}
    			});
+
+            $.ajax ({
+                url: "/list",
+                type: "GET",
+                data: "year="+year+"&inputPlace="+inputPlace
+            });
     	});
 
 		$.ajax ({
 			url: "/check/population/status",
 			type: "GET",
 			success: function(placeInfo) {
-				if(placeInfo != undefined) {
-						$("#p2").append("<h2>== " + placeInfo.nthPlaceName + " ==</h2>");
-   						$("#p2").append("<p> 전체 인구 수: " + placeInfo.nthPopulation + "</p>");
-						$("#p2").append("<p> 65세 이상 인구 수: " + placeInfo.nthPopulation65 + "</p>");
-						$("#p2").append("<p> 65세 이상 인구 비율: " + placeInfo.nthPercent65 + "</p>");
+                if (placeInfo != undefined && placeInfo.placeName != null) {
+                    $("#p2").append("<h2>== " + placeInfo.placeName + ", " + placeInfo.year + "년 ==</h2>");
+                    $("#p2").append("<p> 전체 인구 수: " + placeInfo.allPopulation + "</p>");
+                    $("#p2").append("<p> 65세 이상 인구 수: " + placeInfo.over65 + "</p>");
+                    $("#p2").append("<p> 65세 이상 인구 비율: " + placeInfo.percent65 + "</p>");
+                    $("#p2").append("<p> 현재 " + placeInfo.placeName + "는 " + placeInfo.proportionOver65 + "에 접어들었습니다.</p>");
 				}
 			}
 		});

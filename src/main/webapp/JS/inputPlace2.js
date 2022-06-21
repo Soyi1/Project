@@ -3,7 +3,7 @@ function selcetList2(getValue){
     let getOption = $("#input3 option").length;
     let setPlace = null;
     let getPlace = null;
-
+2
     if (getValue == "") {
         setPlace = new Array("도시를 선택하세요.");
         getPlace = new Array("");

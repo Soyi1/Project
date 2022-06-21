@@ -1,6 +1,7 @@
 package checkPopulation;
 
 import Mysql.DatabaseManager;
+import org.json.JSONObject;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -11,58 +12,39 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "checkPopulation", value = "/check/population")
 public class checkPopulation extends HttpServlet {
-    public static List<populationList> getPlaceList = new ArrayList<>();	// 행정 구역 17개를 저장하기 위한 ArrayList
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
+        HttpSession session = request.getSession();
+        PrintWriter output = response.getWriter();
 
-        String year = request.getParameter("year");
-        String inputPlace = request.getParameter("inputPlace");
+        JSONObject json = new JSONObject();
 
-        Connection conn = DatabaseManager.getConnection();
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+        try {
+            int year = Integer.parseInt(request.getParameter("year"));
+            String inputPlace = request.getParameter("inputPlace");
+            String proportionOver65 = null;
 
-        if (conn != null) {
-            if (year.equals("2010")) {
+            Connection conn = DatabaseManager.getConnection();
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+
+            if (conn != null) {
                 try {
-                    String sql = "SELECT * FROM place_2010 WHERE placeName = ?";
+                    String sql = null;
 
-                    pstmt = DatabaseManager.getPstmt(conn, sql);
-                    pstmt.setString(1, inputPlace);
-
-                    rs = pstmt.executeQuery();
-
-                    if (rs.next()) {
-                        HttpSession session = request.getSession();
-                        session.setMaxInactiveInterval(3600);
-                        session.setAttribute("placeName", inputPlace);
-                        session.setAttribute("allPopulation", rs.getString("allPopulation"));
-                        session.setAttribute("over65", rs.getString("over65"));
-                        session.setAttribute("percent65", rs.getString("percent65"));
-
-                        PrintWriter output = response.getWriter();
-
-                        String json = "{\"placeName\": \"" + inputPlace + "\", \"allPopulation\": \"" + rs.getString("allPopulation") + "\", \"over65\": \"" + rs.getString("over65") + "\", \"percent65\": \"" + rs.getString("percent65") + "\"}";
-                        output.print(json);
-                        output.close();
+                    if (year == 2010) {
+                        sql = "SELECT * FROM place_2010 WHERE placeName = ?";
+                    } else if (year == 2015) {
+                        sql = "SELECT * FROM place_2015 WHERE placeName = ?";
+                    } else if (year == 2020) {
+                        sql = "SELECT * FROM place_2020 WHERE placeName = ?";
+                    } else {
+                        sql = "SELECT * FROM place_2022 WHERE placeName = ?";
                     }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } finally {
-                    DatabaseManager.closeResultSet(rs);
-                    DatabaseManager.closePstmt(pstmt);
-                    DatabaseManager.closeConn(conn);
-                }
-            } else if (year.equals("2015")) {
-                try {
-                    String sql = "SELECT * FROM place_2015 WHERE placeName = ?";
 
                     pstmt = DatabaseManager.getPstmt(conn, sql);
                     pstmt.setString(1, inputPlace);
@@ -70,76 +52,28 @@ public class checkPopulation extends HttpServlet {
                     rs = pstmt.executeQuery();
 
                     if (rs.next()) {
-                        HttpSession session = request.getSession();
+                        if (7 < rs.getFloat("percent65")) {
+                            proportionOver65 = "고령화 사회";
+                        } else if (14 < rs.getFloat("percent65")) {
+                            proportionOver65 = "고령 사회";
+                        } else if (20 < rs.getFloat("percent65")) {
+                            proportionOver65 = "초고령 사회";
+                        }
+
                         session.setMaxInactiveInterval(3600);
                         session.setAttribute("placeName", inputPlace);
                         session.setAttribute("allPopulation", rs.getString("allPopulation"));
                         session.setAttribute("over65", rs.getString("over65"));
                         session.setAttribute("percent65", rs.getString("percent65"));
+                        session.setAttribute("year", year);
+                        session.setAttribute("proportionOver65", proportionOver65);
 
-                        PrintWriter output = response.getWriter();
+                        json.put("placeName", inputPlace);
+                        json.put("allPopulation", rs.getString("allPopulation"));
+                        json.put("over65", rs.getString("over65"));
+                        json.put("percent65", rs.getString("percent65"));
+                        json.put("proportionOver65", proportionOver65);
 
-                        String json = "{\"placeName\": \"" + inputPlace + "\", \"allPopulation\": \"" + rs.getString("allPopulation") + "\", \"over65\": \"" + rs.getString("over65") + "\", \"percent65\": \"" + rs.getString("percent65") + "\"}";
-                        output.print(json);
-                        output.close();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } finally {
-                    DatabaseManager.closeResultSet(rs);
-                    DatabaseManager.closePstmt(pstmt);
-                    DatabaseManager.closeConn(conn);
-                }
-            } else if (year.equals("2020")) {
-                try {
-                    String sql = "SELECT * FROM place_2020 WHERE placeName = ?";
-
-                    pstmt = DatabaseManager.getPstmt(conn, sql);
-                    pstmt.setString(1, inputPlace);
-
-                    rs = pstmt.executeQuery();
-
-                    if (rs.next()) {
-                        HttpSession session = request.getSession();
-                        session.setMaxInactiveInterval(3600);
-                        session.setAttribute("placeName", inputPlace);
-                        session.setAttribute("allPopulation", rs.getString("allPopulation"));
-                        session.setAttribute("over65", rs.getString("over65"));
-                        session.setAttribute("percent65", rs.getString("percent65"));
-
-                        PrintWriter output = response.getWriter();
-
-                        String json = "{\"placeName\": \"" + inputPlace + "\", \"allPopulation\": \"" + rs.getString("allPopulation") + "\", \"over65\": \"" + rs.getString("over65") + "\", \"percent65\": \"" + rs.getString("percent65") + "\"}";
-                        output.print(json);
-                        output.close();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } finally {
-                    DatabaseManager.closeResultSet(rs);
-                    DatabaseManager.closePstmt(pstmt);
-                    DatabaseManager.closeConn(conn);
-                }
-            } else if (year.equals("2022")) {
-                try {
-                    String sql = "SELECT * FROM place_2022 WHERE placeName = ?";
-
-                    pstmt = DatabaseManager.getPstmt(conn, sql);
-                    pstmt.setString(1, inputPlace);
-
-                    rs = pstmt.executeQuery();
-
-                    if (rs.next()) {
-                        HttpSession session = request.getSession();
-                        session.setMaxInactiveInterval(3600);
-                        session.setAttribute("placeName", inputPlace);
-                        session.setAttribute("allPopulation", rs.getString("allPopulation"));
-                        session.setAttribute("over65", rs.getString("over65"));
-                        session.setAttribute("percent65", rs.getString("percent65"));
-
-                        PrintWriter output = response.getWriter();
-
-                        String json = "{\"placeName\": \"" + inputPlace + "\", \"allPopulation\": \"" + rs.getString("allPopulation") + "\", \"over65\": \"" + rs.getString("over65") + "\", \"percent65\": \"" + rs.getString("percent65") + "\"}";
                         output.print(json);
                         output.close();
                     }
@@ -151,6 +85,8 @@ public class checkPopulation extends HttpServlet {
                     DatabaseManager.closeConn(conn);
                 }
             }
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 }

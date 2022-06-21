@@ -112,8 +112,8 @@
 		$.ajax ({
 			url: "/login/status",
 			type: "GET",
-			success: function(User) {
-				setHeader(User);
+			success: function(loginUser) {
+                setHeader(loginUser);
 			}
 		});
     </script>

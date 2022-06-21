@@ -22,13 +22,13 @@
 
     <form action="" method="POST">
         <div id="input_ID">
-        	<p id="regulation">영어 대소문자, 숫자를 조합하여 4자 ~ 12자만 가능합니다.</p>
+        	<p class="regulation">영어 대소문자, 숫자를 조합하여 4자 ~ 12자만 가능합니다.</p>
             <input type="text" name="ID" id="ID" placeholder="아이디">
             <button type="button" id="ID_check">중복 확인</button>
         </div>
 
         <div>
-        <p id="regulation">영어 대소문자, 숫자, 특수문자('~', '!', '@', '#', '$', '%', '&', '*')를 조합하여 5자 ~ 15자만 가능합니다.</p>
+        <p class="regulation">영어 대소문자, 숫자, 특수문자('~', '!', '@', '#', '$', '%', '&', '*')를 조합하여 5자 ~ 15자만 가능합니다.</p>
             <input type="password" name="PW" id="PW" placeholder="비밀번호">
         </div>
 
@@ -47,27 +47,29 @@
     <script>
     	$("#ID_check").on("click", function() {
     		let ID = $("#ID").val();
-    		
-    		$.ajax ({
-    			url: "/id/check",
-    			type: "POST",
-    			data: "ID="+ID,
-    			success: function() {
-    				alert("사용 가능한 아이디입니다.");
-    				
-    				$("#ID").attr("disabled", true);
-    			},
-    			error: function() {
-    				alert("사용할 수 없는 아이디입니다.");
-    			},
-    		});
+
+            $.ajax ({
+                url: "/id/check",
+                type: "POST",
+                data: "ID="+ID,
+                success: function() {
+                    alert("사용 가능한 아이디입니다.");
+
+                    $("#ID").attr("disabled", true);
+                },
+                error: function() {
+                    alert("사용할 수 없는 아이디입니다.");
+                },
+            });
     	});
     	
-    	$("#submit").on("click", function() {
+    	$("#submit").on("click", function(e) {
+            e.preventDefault();
+
     		let ID = $("#ID").val();
     		let PW = $("#PW").val();
     		let PW_check = $("#PW_check").val();
-    		var idDisabled = $("#ID").is(":disabled");
+    		let idDisabled = $("#ID").is(":disabled");
     		
     		if(idDisabled) {
         		$.ajax ({
@@ -75,11 +77,11 @@
         			type: "POST",
         			data: "ID="+ID+"&PW="+PW+"&PW_check="+PW_check,
         			success: function() {
-						alert("정상적으로 회원가입 되었습니다.");
+						alert(ID + "님, 정상적으로 회원가입 되었습니다.");
         				location.href="/main.html";
      				},
         			error: function() {
-        				alert("비밀번호를 확인해주세요.");	
+        				alert("비밀번호를 확인해주세요.");
         			}
      			});
     		} else {

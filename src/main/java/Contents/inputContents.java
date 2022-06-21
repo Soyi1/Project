@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "inputContents", value = "/inputContents")
+@WebServlet(name = "inputContents", value = "/input/contents")
 public class inputContents extends HttpServlet {
     public static List<ContentsList> contentsList = new ArrayList<>();
 
