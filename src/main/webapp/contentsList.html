@@ -146,12 +146,11 @@
 		});
 		
 		if (location.search > 0) {
-			let parameter = location.search.substr(1);
+			let parameter = location.search.substring(1);
 			parameter = parameter.split("=");
 			
 			pageNum = parameter[1];
 		}
-		
 		
 		$.ajax ({
 			url: "/title/list",
@@ -166,10 +165,10 @@
 						adminTitle = noticeInfo.title;
 						
 						if((adminTitle).includes("<공지>")) {
-							$("#AdminTitle").prepend("<div class=\"Admincontents\"><span class=\"AdminTitleNum\"><공지></span><span class=\"title\">" + noticeInfo.title  + "</span></div>");
-							$("#UserTitle").prepend("<div class=\"Admincontents\"><span class=\"AdminTitleNum\">" + (i + 1) + "</span><span class=\"title\" id=\"title\">" + noticeInfo.title  + "</span></div>");
+							$("#AdminTitle").prepend("<div class=\"Admincontents\"><span class=\"AdminTitleNum\"><공지></span><span class=\"title\"><a href=\"#\">" + noticeInfo.title + "</></span></div>");
+							$("#UserTitle").prepend("<div class=\"Admincontents\"><span class=\"AdminTitleNum\">" + (i + 1) + "</span><span class=\"title\" id=\"title\"><a href=\"#\">" + noticeInfo.title + "</a></span></div>");
 						} else {
-							$("#UserTitle").prepend("<div class=\"UserContents\"><span class=\"UserTitleNum\">" + (i + 1) + "</span><span class=\"title\" id=\"title\">" + noticeInfo.title  + "</span></div>");
+							$("#UserTitle").prepend("<div class=\"UserContents\"><span class=\"UserTitleNum\">" + (i + 1) + "</span><span class=\"title\" id=\"title\"><a href=\"#\">" + noticeInfo.title + "</></span></div>");
 						}
 					}
 					

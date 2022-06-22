@@ -17,16 +17,20 @@ public class inputContents extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        String whoseContents = (String) session.getAttribute("User");
+        String whoseContents = (String) session.getAttribute("loginUser");
 
         String title = request.getParameter("title");
         String contents = request.getParameter("contents");
 
-        if(whoseContents.equals("admin1")) {
-            title = "<공지>" + title;
-        }
+        if (!(title.equals("")) && !(contents.equals(""))) {
+            if(whoseContents.equals("admin01")) {
+                title = "<공지>" + title;
+            }
 
-        ContentsList list = new ContentsList(title, contents);
-        contentsList.add(list);
+            ContentsList list = new ContentsList(title, contents);
+            contentsList.add(list);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 }

@@ -6,6 +6,15 @@
 	margin: 20px !important;
 }
 
+.title a {
+    color: black;
+    text-decoration: none;
+}
+
+.title a:hover {
+    font-weight: bold;
+}
+
 #list {
     color: black;
     transform: translateY(-500px);

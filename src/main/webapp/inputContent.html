@@ -124,7 +124,9 @@
 			}
 		});
 		
-		$("#submit").on("click", function() {
+		$("#submit").on("click", function(e) {
+            e.preventDefault();
+
 			let title = $("#input_header").val();
 			let contents = $("#input_text").val();
 			
@@ -135,7 +137,10 @@
 				success: function() {
 					alert("작성하신 글이 정상적으로 게시되었습니다.");
 					location.href="/contentsList.html";
-				}
+				},
+                error: function () {
+                    alert("제목과 내용은 최소 한 글자 씩 작성해야 합니다.")
+                }
 			});
 		});
     </script>
