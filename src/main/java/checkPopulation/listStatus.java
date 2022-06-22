@@ -1,5 +1,7 @@
 package checkPopulation;
 
+import dto.populationList;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;

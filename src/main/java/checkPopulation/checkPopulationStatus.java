@@ -1,6 +1,5 @@
 package checkPopulation;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.*;
@@ -8,8 +7,6 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "checkPopulationStatus", value = "/check/population/status")
 public class checkPopulationStatus extends HttpServlet {

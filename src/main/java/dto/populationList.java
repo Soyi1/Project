@@ -1,4 +1,4 @@
-package checkPopulation;
+package dto;
 
 public class populationList {
     private String inputPlace;
